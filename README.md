@@ -517,4 +517,3 @@ Helm Chart Changes → ArgoCD Deploys → Kubernetes Cluster Updated
 - **Note:** CI does **not deploy directly** to Kubernetes in this setup.  
 - CI’s role is limited to: build, test, package, push Docker image, and update Helm chart.  
 
-work continues
