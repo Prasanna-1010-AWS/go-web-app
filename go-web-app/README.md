@@ -1,6 +1,6 @@
 # End-to-End DevOps Implementation Guide for `go-web-app`
 
-## 1️. Project Overview
+## Project Overview
 
 This project demonstrates how to **“DevOpsify”** an existing application that currently has **no DevOps practices**.
 
@@ -18,7 +18,7 @@ This project demonstrates how to **“DevOpsify”** an existing application tha
 
 ---
 
-## 2️. DevOps Practices We Will Implement
+## DevOps Practices We Will Implement
 
 1. **Containerization**
    - Create a **Dockerfile** using a **distroless image** for security and minimal footprint.
@@ -50,7 +50,7 @@ This project demonstrates how to **“DevOpsify”** an existing application tha
 
 ---
 
-## 3️. Outcome
+## Outcome
 
 By the end of this implementation:
 
@@ -60,7 +60,7 @@ By the end of this implementation:
 - Ingress will make the app **accessible via a domain or DNS**.
 - This setup mirrors what a DevOps team would implement in a real organization.
 
-## 4. Understanding the Application  
+## Understanding the Application  
 
 Before implementing DevOps practices, a DevOps Engineer must understand the project in detail. This includes:  
 
@@ -69,14 +69,14 @@ Before implementing DevOps practices, a DevOps Engineer must understand the proj
 - On which **port** the application is running  
 - How the application **looks like** when accessed  
 
-## 5. Create a Project Folder  
+## Create a Project Folder  
 
 Create a folder named **go-web-app** in your local machine using the following command:  
 
 ```bash
 mkdir go-web-app
 
-## 6. Clone the Repository  
+## 1. Clone the Repository  
 
 Move into the **go-web-app** folder and clone the repository inside it:  
 
@@ -84,28 +84,28 @@ Move into the **go-web-app** folder and clone the repository inside it:
 cd go-web-app
 git clone <repository_url>
 
-## 7. Build and Run the Application  
+## 2. Build and Run the Application  
 
 Build the Go application:  
 
 ```bash
 go build -o main .
 
-## 8. Verify the Binary File  
+## 3. Verify the Binary File  
 
 After building the application, list the files in the folder to verify the binary has been created:  
 
 ```bash
 ls
 
-## 9. Execute the Go Binary  
+## 4. Execute the Go Binary  
 
 Run the compiled Go application using the binary:  
 
 ```bash
 ./main
 
-## 10. Access the Application in Browser
+## 5. Access the Application in Browser
 Once the Go binary is running, open your web browser and navigate to:
 
 http://localhost:8080/courses
@@ -114,7 +114,7 @@ http://localhost:8080/courses
 - According to the developer team's repo, the **server starts on port 8080**.  
 
 
-## 11. Write the Dockerfile  
+## 6. Write the Dockerfile  
 
 Open your project folder in VS Code to create the Dockerfile:  
 
@@ -124,7 +124,7 @@ code .
 - This will open the go-web-app folder in VS Code.
 - Inside VS Code, create a file named Dockerfile in the root of the project.
 
-## 12. Create a Multi-Stage Dockerfile  
+## 7. Create a Multi-Stage Dockerfile  
 
 We will use a **multi-stage Dockerfile** to build the Go application and create a minimal, secure image using a distroless base.  
 
@@ -138,35 +138,35 @@ We will use a **multi-stage Dockerfile** to build the Go application and create 
 - Expose the application port  
 - Run the application  
 
-## 13. Build the Docker Image 
+## 8. Build the Docker Image 
 
 Once the Dockerfile is created, build the Docker image using the following command: 
 
 ```bash
 docker build -t prasanna/go-web-app:v1 .
 
-## 14. Run the Docker Image  
+## 9. Run the Docker Image  
 
 Run the Docker container using the following command:  
 
 ```bash
 docker run -p 8080:8080 -it prasanna/go-web-app:v1
 
-## 15. DockerHub Login
+## 10. DockerHub Login
 
 First, log in to DockerHub from your local machine:  
 
 ```bash
 docker login
 
-## 16. Push the Docker Image to DockerHub  
+## 11. Push the Docker Image to DockerHub  
 
 After logging in, push your Docker image to DockerHub:  
 
 ```bash
 docker push prasannadevops2025/go-web-app:v1
 
-## 17. Create Kubernetes Manifests  
+## 12. Create Kubernetes Manifests  
 
 1. In VS Code, create a folder named **`k8s`** inside your `go-web-app` folder.  
 2. Inside the `k8s` folder, create another folder named **`manifests`**.  
@@ -175,14 +175,14 @@ docker push prasannadevops2025/go-web-app:v1
    - `service.yaml`  
    - `ingress.yaml`  
 
-## 18. Prepare Kubernetes Cluster  
+## 13. Prepare Kubernetes Cluster  
 
 - To validate the Kubernetes manifests (`deployment.yaml`, `service.yaml`, `ingress.yaml`), you need a **Kubernetes cluster**.  
 - We will create an **EKS (Elastic Kubernetes Service) cluster** on AWS for this purpose.  
 - Once the cluster is ready, you can apply the manifests to deploy the application.  
 
 
-## 19. Create EKS Cluster on AWS  
+## 14. Create EKS Cluster on AWS  
 
 ### Prerequisites (install in your local machine)  
 - **kubectl** → Command-line tool to interact with Kubernetes clusters  
@@ -194,7 +194,7 @@ docker push prasannadevops2025/go-web-app:v1
 
 
 
-## 20. Install an EKS Cluster with EKSCTL  
+## 15. Install an EKS Cluster with EKSCTL  
 
 Run the below command to create an EKS cluster in AWS:  
 
@@ -202,7 +202,7 @@ Run the below command to create an EKS cluster in AWS:
 eksctl create cluster --name go-web-app --region ap-south-1
 
 
-## 21. Validate the Deployment YAML  
+## 16. Validate the Deployment YAML  
 
 Apply the Deployment manifest to the EKS cluster:  
 
@@ -216,7 +216,7 @@ kubectl get pods
 
 
 
-## 22. Apply and Validate the Service  
+## 17. Apply and Validate the Service  
 
 Apply the Service manifest to the EKS cluster:  
 
@@ -228,7 +228,7 @@ Check the Service status:
 ```bash
 kubectl get services
 
-## 23. Apply and Validate the Ingress  
+## 18. Apply and Validate the Ingress  
 
 Apply the Ingress manifest to the EKS cluster:  
 
@@ -240,7 +240,7 @@ Check the Ingress status:
 ```bash
 kubectl get ingress
 
-## 24. Accessing Applications via Ingress  
+## 19. Accessing Applications via Ingress  
 
 - You **cannot directly access** applications by just creating an Ingress resource (`kubectl get ing`).  
 - An **Ingress Controller** (e.g., NGINX Ingress Controller or AWS Load Balancer Controller) is required to process Ingress rules.  
@@ -253,7 +253,7 @@ kubectl get ingress
    kubectl get ingress
 
 
-## 25. Verify the Service with NodePort  
+## 20. Verify the Service with NodePort  
 
 Before proceeding further, verify that the Service is working correctly by exposing it as a **NodePort**:  
 
@@ -272,7 +272,7 @@ Verify the Service is running on a NodePort:
 kubectl get svc
 
 
-## 26. Open Security Group Ports  
+## 21. Open Security Group Ports  
 
 To allow external access to your NodePort service, update the EKS worker node **Security Group**:  
 
@@ -282,7 +282,7 @@ To allow external access to your NodePort service, update the EKS worker node **
 This ensures that your NodePort service is reachable from outside the cluster.  
 
 
-## 27. Access the Application Using NodePort  
+## 22. Access the Application Using NodePort  
 
 After opening the Security Group ports:  
 
@@ -305,7 +305,7 @@ http://<ExternalNodeIP>:<NodePort>
 
 - Replace <NodePort> with the port shown in kubectl get svc.
 
-## 28. Configure Ingress Controller  
+## 23. Configure Ingress Controller  
 
 Install the **Nginx Ingress Controller** on AWS to manage external access to your services:  
 
@@ -317,7 +317,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 - The Ingress Controller will watch for Ingress resources and create a Load Balancer automatically to expose your applications externally.
 
 
-## 29. How Ingress Controller Works  
+## 24. How Ingress Controller Works  
 
 - The **Ingress Controller** continuously watches the cluster for **Ingress resources**.  
 - When it detects a new Ingress, it automatically:  
@@ -326,7 +326,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 - This allows your application to be accessible via a domain name or external IP.  
 
 
-## 30. Verify Ingress Controller  
+## 25. Verify Ingress Controller  
 
 Check the Ingress Controller pods and ensure it is running properly:  
 
@@ -339,7 +339,7 @@ kubectl get pods -n ingress-nginx
 
 - Once associated, the Load Balancer will be provisioned and ready to route traffic to your application.
 
-## 31. Verify Load Balancer Creation  
+## 26. Verify Load Balancer Creation  
 
 - After the Ingress Controller is running, check if the **Load Balancer** has been created.  
 - Note: If you try to access the application using the Load Balancer link directly, it may **not work** because the **Ingress YAML is configured with a domain name**.  
@@ -347,7 +347,7 @@ kubectl get pods -n ingress-nginx
 
 - To access the app properly, you need to map the Load Balancer IP to the domain name configured in the Ingress.  
 
-## 32. Resolve Load Balancer IP with nslookup  
+## 27. Resolve Load Balancer IP with nslookup  
 
 - Copy the domain name or URL from the Load Balancer.  
 - Use `nslookup` to get the corresponding IP address:  
@@ -360,7 +360,7 @@ nslookup <your-domain-name>
 - Use this IP for testing or mapping to your local DNS.
 
 
-## 33. Map Load Balancer IP to Local DNS  
+## 28. Map Load Balancer IP to Local DNS  
 
 - Open the `/etc/hosts` file with elevated privileges to map the Load Balancer IP to your domain:  
 
@@ -373,7 +373,7 @@ write the IP and domain name as shown: <LoadBalancer-IP> <your-domain-name>
 - Your application should now be accessible and working correctly via the domain.  
 
 
-## 34. Introduction to Helm  
+## 29. Introduction to Helm  
 
 ### What is Helm?  
 - **Helm** is a **package manager for Kubernetes**, similar to:  
@@ -391,7 +391,7 @@ write the IP and domain name as shown: <LoadBalancer-IP> <your-domain-name>
 - It uses **templates and configuration values** to make deployments reusable and environment-specific.  
 
 
-## 35. Create Helm Chart for the Application  
+## 30. Create Helm Chart for the Application  
 
 1. Create a new folder for Helm charts:  
 
@@ -416,7 +416,7 @@ templates/ → Contains Kubernetes resource templates (Deployment, Service, Ingr
 
 values.yaml → Default configuration values used by the templates
 
-## 36. Clean Up Templates Folder  
+## 31. Clean Up Templates Folder  
 
 - Navigate to the `templates` folder inside your Helm chart:  
 
@@ -429,7 +429,7 @@ Delete all default template files generated by Helm:
 rm -rf *
 
 
-## 37. Copy Kubernetes Manifests into Helm Templates  
+## 32. Copy Kubernetes Manifests into Helm Templates  
 
 - Copy your existing Kubernetes manifests into the Helm chart's `templates` folder:  
 
@@ -446,7 +446,7 @@ This will move:
 
 Now the Helm chart uses your custom manifests as templates for deployment.
 
-## 38. Install the Application Using Helm  
+## 33. Install the Application Using Helm  
 
 - Deploy your application using the Helm chart:  
 
@@ -465,7 +465,7 @@ kubectl get pods
 kubectl get svc
 kubectl get ingress
 
-## 39. Uninstall Helm Release  
+## 34. Uninstall Helm Release  
 
 - If you need to remove the deployed application, use the `helm uninstall` command:  
 
@@ -474,7 +474,7 @@ helm uninstall go-web-app
 
 - This will delete all resources (Deployment, Service, Ingress, etc.) created by the Helm chart for the go-web-app release.
 
-## 40. Continuous Integration (CI) Using GitHub Actions  
+## 35. Continuous Integration (CI) Using GitHub Actions  
 
 Typical stages of a CI pipeline:  
 
@@ -501,7 +501,7 @@ This completes the CI workflow:
 Code → Tested → Container → Updated Helm Chart
 
 
-## 41. Continuous Deployment (CD) Using GitOps + ArgoCD  
+## 36. Continuous Deployment (CD) Using GitOps + ArgoCD  
 
 - **ArgoCD** continuously monitors the Git repository containing Helm charts.  
 - When `values.yaml` changes (e.g., a new Docker image tag), ArgoCD performs the following:  
