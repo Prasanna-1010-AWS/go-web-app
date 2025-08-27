@@ -103,7 +103,7 @@ jobs:
         run: |
           git config --global user.email "prasanna.m.loa@gmail.com"
           git config --global user.name "Prasanna"
-          git add helm/go-web-app-chart/values.yaml
+          git add helm/go-web-app/values.yaml
           # Only commit if there are changes
           if ! git diff --staged --quiet; then
             git commit -m "Update tag in Helm chart"
